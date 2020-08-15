@@ -41,5 +41,85 @@ public class FoodDaoImpl implements FoodDao{
 		}
 		return list;
 	}
+	
+	@Override
+	public int saveFood(Food food) {
+		int result = 0;
+		String sql = "insert into food values(null,?,?,?,?)";
+		try {
+			con = DBUtil.getConnection();
+			pst = con.prepareStatement(sql);
+			pst.setString(1, food.getFoodName());
+			pst.setString(2, food.getFoodExplain());
+			pst.setDouble(3, food.getFoodPrice());
+			pst.setInt(4, food.getBusinessId());
+			result = pst.executeUpdate();
+		}catch(Exception e){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+			e.printStackTrace();
+		}finally {
+			DBUtil.closeAll(null, pst, con);
+		}
+		return result;
+	}
+	
+	@Override
+	public int removeFoodById(Integer foodId) {
+		int result = 0;
+		String sql = "delete from food where foodId=?";
+		try {
+			con = DBUtil.getConnection();
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, foodId);
+			result = pst.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			DBUtil.closeAll(null, pst, con);
+		}
+		return result;
+	}
+	@Override
+	public Food getFoodById(Integer foodId) {
+		Food food = null;
+		String sql = "select * from food where foodId=?";
+		try {
+			con = DBUtil.getConnection();
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, foodId);
+			rs = pst.executeQuery();
+			if(rs.next()) {
+				food = new Food();
+				food.setFoodId(rs.getInt("foodId"));
+				food.setFoodName(rs.getString("foodName"));
+				food.setFoodExplain(rs.getString("foodExplain"));
+				food.setFoodPrice(rs.getDouble("foodPrice"));
+				food.setBusinessId(rs.getInt("businessId"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			DBUtil.closeAll(rs, pst, con);
+		}
+		return food;
+	}
+	
+	@Override
+	public int updateFood(Food food) {
+		int result = 0;
+		String sql = "update food set foodName=?,foodExplain=?,foodPrice=? where foodId=?";
+		try {
+			con = DBUtil.getConnection();
+			pst = con.prepareStatement(sql);
+			pst.setString(1, food.getFoodName());
+			pst.setString(2, food.getFoodExplain());
+			pst.setDouble(3, food.getFoodPrice());
+			pst.setInt(4, food.getFoodId());
+			result = pst.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			DBUtil.closeAll(null, pst, con);
+		}
+		return result;
+	}
 }
-

@@ -7,4 +7,9 @@ import com.neusoft.elm.po.Food;
 public interface FoodDao {
 
 	public List<Food> listFoodByBusinessId(Integer businessId);
+	public int saveFood(Food food);
+	public int removeFoodById(Integer foodId);
+	public Food getFoodById(Integer foodId);
+	public int updateFood(Food food);
+    
 }

@@ -69,13 +69,13 @@ public class ElmBusinessEnter {
 					foodView.listFoodByBusinessId(businessId);
 					break;
 				case 2:
-					System.out.println("新增食品");
+					foodView.saveFood(businessId);
 					break;
 				case 3:
-					System.out.println("修改食品");
+					foodView.updateFood(businessId);
 					break;
 				case 4:
-					System.out.println("删除食品");
+					foodView.removeFood(businessId);
 					break;
 				case 5:
 					break;	
